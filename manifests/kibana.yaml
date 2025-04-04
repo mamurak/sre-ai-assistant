@@ -1,0 +1,21 @@
+apiVersion: logging.openshift.io/v1
+kind: Kibana
+metadata:
+  name: kibana
+  namespace: openshift-logging
+spec:
+  managementState: Managed
+  proxy:
+    resources:
+      limits:
+        memory: 256Mi
+      requests:
+        cpu: 100m
+        memory: 256Mi
+  replicas: 1
+  resources:
+    limits:
+      memory: 736Mi
+    requests:
+      cpu: 100m
+      memory: 736Mi

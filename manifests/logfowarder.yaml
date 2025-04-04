@@ -1,0 +1,22 @@
+apiVersion: logging.openshift.io/v1
+kind: ClusterLogForwarder
+metadata:
+  name: instance
+  namespace: openshift-logging
+spec:
+  pipelines:
+    - inputRefs:
+        - application
+      name: forward-app-logs
+      outputRefs:
+        - default
+    - inputRefs:
+        - infrastructure
+      name: forward-infra-logs
+      outputRefs:
+        - default
+    - inputRefs:
+        - audit
+      name: forward-audit-logs
+      outputRefs:
+        - default
