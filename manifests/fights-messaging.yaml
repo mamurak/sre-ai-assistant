@@ -35,20 +35,20 @@ spec:
           command:
             - sh
             - '-c'
-            - 'export CLUSTER_ID=$(bin/messaging-storage.sh random-uuid) && bin/messaging-storage.sh format -t ${CLUSTER_ID} -c config/kraft/server.properties && bin/messaging-server-start.sh config/kraft/server.properties --override advertised.listeners=${messaging_ADVERTISED_LISTENERS}'
+            - 'export CLUSTER_ID=$(bin/kafka-storage.sh random-uuid) && bin/kafka-storage.sh format -t ${CLUSTER_ID} -c config/kraft/server.properties && bin/kafka-server-start.sh config/kraft/server.properties --override advertised.listeners=${KAFKA_ADVERTISED_LISTENERS}'
           env:
             - name: LOG_DIR
               value: /tmp/logs
-            - name: messaging_ADVERTISED_LISTENERS
+            - name: KAFKA_ADVERTISED_LISTENERS
               value: 'PLAINTEXT://fights-messaging:9092'
-            - name: messaging_HEAP_OPTS
+            - name: KAFKA_HEAP_OPTS
               value: '-Xmx128M -Xms128M'
           ports:
             - containerPort: 9092
               protocol: TCP
           imagePullPolicy: IfNotPresent
           terminationMessagePolicy: File
-          image: 'quay.io/strimzi/messaging:0.43.0-messaging-3.8.0'
+          image: 'quay.io/strimzi/kafka:0.43.0-kafka-3.8.0'
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
       dnsPolicy: ClusterFirst
