@@ -53,6 +53,15 @@ From the Openshift ElasticSearch Operator you need to create one ElasticSearch a
 
 ### LLM deployment
 
+- Create a new project `llm`.
+- Deploy `manifests/model-deployment.yaml`.
+- Monitor the event logs of the inference pod `sre-assistant-predictor` pod. You should see the following entry: `Pulling image "quay.io/mmurakam/model-cars:sre-assistant-v0.1.0"`. Pulling this image may take up to 30 minutes.
+- The inference pod will time out after a couple of minutes and stay in state `Terminating` until the image has been pulled. Wait until it's been removed.
+- Find the `InferenceService` CR with name `sre-assistant`. Copy it, remove it, re-deploy it.
+- Monitor the same inference pod. It should now come up fast since the model car image has already been pulled.
+- Once it's up and running, you should find its green status in the RHOAI Dashboard under `Projects -> llm -> Models`.
+- Copy the inference endpoint URL for reference within the chat UI workbench.
+
 ### The chat UI
 
 ### The broken Kafka instance
